@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import './styles.css';
 
 const OWNER_EMAIL = 'priteshdman.pd@gmail.com'; // 🔁 Replace with Pritesh's actual email
@@ -28,21 +28,27 @@ const TESTIMONIALS = [
 ];
 
 export default function App() {
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const scrollTo = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); setMenuOpen(false); };
   const formRef = useRef();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="app">
       {/* Navbar */}
       <nav className="navbar">
-        {/* <div className="nav-brand">Dance Choreographer</div> */}
-        <ul className="nav-links">
+        <div className="nav-brand">PD</div>
+        <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
           {NAV_LINKS.map(link => (
             <li key={link}>
               <button onClick={() => scrollTo(link.toLowerCase())}>{link}</button>
             </li>
           ))}
         </ul>
+        <button className="hamburger" onClick={() => setMenuOpen(o => !o)} aria-label="Toggle menu">
+          <span className={menuOpen ? 'bar open' : 'bar'}></span>
+          <span className={menuOpen ? 'bar open' : 'bar'}></span>
+          <span className={menuOpen ? 'bar open' : 'bar'}></span>
+        </button>
       </nav>
 
       {/* Hero */}
